@@ -1,0 +1,9 @@
+{
+    "DenySettingsMode": "DenyWriteAndDelete",
+    "DenySettingsApplyToChildScopes": true,
+    "ActionOnUnmanage": "DeleteAll",
+    "DenySettingsExcludedAction": [
+        "Microsoft.Storage/storageAccounts/blobServices/containers/*"
+    ],
+    "Force": true
+}

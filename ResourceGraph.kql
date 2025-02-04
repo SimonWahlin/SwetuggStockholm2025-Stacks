@@ -1,0 +1,18 @@
+deploymentresources
+| where type == "microsoft.resources/deploymentstacks"
+| mv-expand managedResource = properties.resources
+| project id = tostring(managedResource.id), stackId = id
+| join kind=inner (
+    resources
+) on id
+| project-away id1
+
+resources
+| where type =~ 'microsoft.storage/storageAccounts'
+| join kind = leftouter (
+    deploymentresources
+    | where type == "microsoft.resources/deploymentstacks"
+    | mv-expand managedResource = properties.resources
+    | project id = tostring(managedResource.id), stackId = id
+) on id
+| project-away id1
